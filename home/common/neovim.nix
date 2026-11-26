@@ -1,21 +1,27 @@
+{ config, pkgs, ... }:
+
 {
-  programs.neovim = {
-    enable = true;
+  home.packages = with pkgs; [
+    neovim
 
-    defaultEditor = true;
+    # Dependências dos plugins
+    git
+    gcc
+    gnumake
+    ripgrep
+    fd
+    unzip
+    curl
+    nodejs
+    lua-language-server
+  ];
 
-    viAlias = true;
-    vimAlias = true;
-
-    extraLuaConfig = ''
-      vim.opt.number = true
-      vim.opt.relativenumber = true
-
-      vim.opt.expandtab = true
-      vim.opt.tabstop = 2
-      vim.opt.shiftwidth = 2
-
-      vim.opt.clipboard = "unnamedplus"
-    '';
+  home.sessionVariables = {
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
+
+  xdg.configFile."nvim".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${config.home.homeDirectory}/nixos/home/dotfiles/nvim";
 }
