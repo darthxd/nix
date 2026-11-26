@@ -3,7 +3,7 @@
 {
 
   imports = [
-    ./hyprland.nix
+  # ./hyprland.nix
     ./zsh.nix
   ];
 
@@ -14,8 +14,13 @@
     stateVersion = "26.05";
   };
 
-  programs.home-manager.enable = true;
+  home.packages = with pkgs; [
+    bat
+    eza
+    fzf
+    zoxide
+  ];
 
-  xdg.enable = true;
+  programs.home-manager.enable = true;
 }
 
