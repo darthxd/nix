@@ -8,12 +8,17 @@
 
     initContent = ''
       bindkey '^F' autosuggest-accept
+      bindkey '^H' backward-kill-word
     '';
 
     shellAliases = {
       ll = "eza -lah";
       ls = "eza";
       cat = "bat";
+      ".." = "z ..";
+      home = "z ~";
+      reload = "exec $SHELL";
+
     };
 
     history = {
