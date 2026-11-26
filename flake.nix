@@ -1,5 +1,5 @@
 {
-  description = "NixOS WSL Configuration";
+  description = "Personal NixOS Configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -15,23 +15,58 @@
     };
   };
 
-  outputs = { nixpkgs, nixos-wsl, home-manager, ... }: {
-    nixosConfigurations.nixos-wsl = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+  outputs = inputs@{
+    nixpkgs,
+    nixos-wsl,
+    home-manager,
+    ...
+  }:
+
+  let
+    system = "x86_64-linux";
+    username = "gabriel";
+
+    mkHost = { modules }: nixpkgs.lib.nixosSystem {
+      inherit system;
+
+      specialArgs = {
+        inherit inputs username;
+      };
 
       modules = [
-        nixos-wsl.nixosModules.default
-
-        ./hosts/wsl/configuration.nix
+        ./modules/nixos/common
 
         home-manager.nixosModules.home-manager
 
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.gabriel = import ./modules/home;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+
+            extraSpecialArgs = {
+              inherit inputs username;
+            };
+
+            users.${username} = import ./home;
+          };
         }
-      ];
+      ] ++ modules;
+    };
+
+  in {
+    nixosConfigurations = {
+      wsl = mkHost {
+        modules = [
+          nixos-wsl.nixosModules.default
+          ./hosts/wsl
+        ];
+      };
+
+      zephyrus = mkHost {
+        modules = [
+          ./hosts/zephyrus
+        ];
+      };
     };
   };
 }

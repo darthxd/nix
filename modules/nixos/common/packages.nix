@@ -3,14 +3,8 @@
 {
   environment.systemPackages = with pkgs; [
     git
-    neovim
-    vim
-    wget
     curl
-    ripgrep
-    fd
+    wget
     unzip
-    htop
-    tree
   ];
 }
