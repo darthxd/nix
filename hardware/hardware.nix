@@ -71,7 +71,7 @@
   services.fstrim.enable = true;
 
   services.udev.extraRules = ''
-  SUBSYSTEM=="drm", KERNEL=="card[0-9]*", KERNELS=="0000:65.00.0", SYMLINK+="dri/amd-igpu"
-'';
+    SUBSYSTEM=="drm", KERNEL=="card[0-9]*", KERNEL!="card*-*", KERNELS=="0000:65:00.0", SYMLINK+="dri/amd-igpu"
+  '';
 
 }

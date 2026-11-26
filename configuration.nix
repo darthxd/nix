@@ -5,7 +5,6 @@
   imports = [
     ./hardware-configuration.nix
     ./hardware/hardware.nix
-    ./modules/desktop
     ./modules
   ];
 
@@ -36,12 +35,17 @@
   # Usuário
   users.users.gabriel = {
     isNormalUser = true;
+
     extraGroups = [
       "wheel"
       "networkmanager"
       "video"
     ];
   };
+
+  security.sudo.extraConfig = ''
+    Defaults pwfeedback
+  '';
 
   # Pacotes proprietários (NVIDIA)
   nixpkgs.config.allowUnfree = true;

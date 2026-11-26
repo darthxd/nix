@@ -38,11 +38,13 @@
             useGlobalPkgs = true;
             useUserPackages = true;
 
+            backupFileExtension = "hm-backup";
+
             extraSpecialArgs = {
               inherit inputs;
             };
 
-            users.gabriel = import ./home;
+            users.gabriel = import ./modules/home;
           };
         }
       ];
