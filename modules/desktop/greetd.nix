@@ -1,20 +1,30 @@
+{ config, pkgs, ... }:
+
+let
+  sessionData = config.services.displayManager.sessionData.desktops;
+in
 {
-	services.displayManager.sddm.enable = false;
+  services.displayManager.sddm.enable = false;
 
-	services.greetd = {
-		enable = true;
+  services.greetd = {
+    enable = true;
 
-		settings = {
-			default_session = {
-				command = "${pkgs.tuigreet}/bin/tuigreet \
-					--time \
-					--remember \
-					--remember-session \
-					--asterisks \
-					--cmd '${pkgs.uwsm}/bin/uwsm start -eD Hyprland hyprland.desktop'";
+    settings.default_session = {
+      user = "greeter";
 
-				user = "greeter";
-			};
-		};
-	};
+      command = builtins.concatStringsSep " " [
+        "${pkgs.tuigreet}/bin/tuigreet"
+
+        "--time"
+        "--remember"
+        "--asterisks"
+
+        "--sessions ${sessionData}/share/wayland-sessions"
+        "--xsessions ${sessionData}/share/xsessions"
+
+        "--cmd '${pkgs.uwsm}/bin/uwsm start hyprland.desktop'"
+      ];
+    };
+  };
 }
+

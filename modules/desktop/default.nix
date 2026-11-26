@@ -1,7 +1,7 @@
 {
 	imports = [
 		./hyprland.nix
-		./greedt.nix
+		./greetd.nix
 		./packages.nix
 	];
 }
