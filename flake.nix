@@ -16,7 +16,7 @@
   };
 
   outputs = { nixpkgs, nixos-wsl, home-manager, ... }: {
-    nixosConfigurations.wsl = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.nixos-wsl = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
 
       modules = [
@@ -29,7 +29,7 @@
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.nixos = import ./home;
+          home-manager.users.gabriel = import ./modules/home;
         }
       ];
     };
