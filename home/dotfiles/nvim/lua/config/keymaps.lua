@@ -20,3 +20,5 @@ keymap("v", ">", ">gv")
 keymap("n", "<leader>a", "ggVG", { silent = true })
 
 keymap("n", "<Esc>", ":nohlsearch<CR>", { silent = true })
+
+keymap("i", "<C-h>", "<C-w>", { desc = "CTRL + BACKSPACE para apagar palavra" })
