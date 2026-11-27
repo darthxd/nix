@@ -1,19 +1,14 @@
 { config, pkgs, ... }:
-
 {
-  home.packages = with pkgs; [
-    neovim
+  imports = [
+    ./dependencies.nix
+    ./lsp.nix
+    ./formatters.nix
+    ./linters.nix
+  ];
 
-    # Dependências dos plugins
-    git
-    gcc
-    gnumake
-    ripgrep
-    fd
-    unzip
-    curl
-    nodejs
-    lua-language-server
+  home.packages = [
+    pkgs.neovim
   ];
 
   home.sessionVariables = {

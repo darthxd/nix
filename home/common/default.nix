@@ -1,7 +1,7 @@
 {
   imports = [
     ./zsh.nix
-    ./neovim.nix
+    ./neovim
     ./packages.nix
     ./git.nix
     ./pi.nix
