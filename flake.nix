@@ -24,6 +24,7 @@
     nixpkgs,
     nixos-wsl,
     home-manager,
+    pi,
     ...
   }:
 
